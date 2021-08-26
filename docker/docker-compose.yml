@@ -1,6 +1,18 @@
 version: "3.4"
 services:
+  postgres:
+    container_name: joke_sender_postgres
+    image: postgres:12-alpine
+    ports:
+      - "5478:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=js
+    volumes:
+      - database-data:/var/lib/pgsql/data/js
   rabbitmq:
+    container_name: joke_sender_rabbit
     image: rabbitmq:management
     ports:
       - "5672:5672"
@@ -8,3 +20,5 @@ services:
     environment:
       - 'RABBITMQ_DEFAULT_USER=rabbit'
       - 'RABBITMQ_DEFAULT_PASS=rabbit'
+volumes:
+  database-data:

@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${DATABASE_URL}:${DATABASE_PORT}/${DATABASE_NAME}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+  rabbitmq:
+    host: ${RABBIT_HOST}
+    port: ${RABBIT_PORT}
+    username: ${RABBIT_USERNAME}
+    password: ${RABBIT_PASSWORD}
+
+
+logging:
+  level:
+    ROOT: INFO
+    ru.omnichat.facebook: DEBUG
+

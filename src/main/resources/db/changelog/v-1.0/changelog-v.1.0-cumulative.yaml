@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: 2021-08-26--01-create_initial_bd_schema.sql
+      relativeToChangelogFile: true
+  - include:
+      file: 2021-08-26--02-fill_joke_bd_schema.sql
+      relativeToChangelogFile: true
