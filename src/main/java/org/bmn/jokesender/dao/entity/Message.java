@@ -1,11 +1,18 @@
 package org.bmn.jokesender.dao.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Table(name = "message")
 @Entity
+@Setter
+@Getter
+@ToString
 public class Message {
 
     @Id
@@ -17,30 +24,6 @@ public class Message {
     @Size(max = 4080)
     @Column(name = "text")
     private String text;
-
-    public Message() {
-    }
-
-    public Message(Long id, String text) {
-        this.id = id;
-        this.text = text;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -54,13 +37,5 @@ public class Message {
     @Override
     public int hashCode() {
         return Objects.hash(text);
-    }
-
-    @Override
-    public String toString() {
-        return "Message{" +
-                "id=" + id +
-                ", text='" + text + '\'' +
-                '}';
     }
 }
