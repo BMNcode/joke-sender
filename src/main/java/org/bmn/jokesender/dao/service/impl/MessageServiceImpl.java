@@ -10,24 +10,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
+@Service("messageservice")
 @Transactional
 @Slf4j
 public class MessageServiceImpl implements MessageService {
 
     private final MessageRepository messageRepository;
-    public final MessageMapper messageMapper;
 
     @Autowired
-    public MessageServiceImpl(MessageRepository messageRepository, MessageMapper messageMapper) {
+    public MessageServiceImpl(MessageRepository messageRepository) {
         this.messageRepository = messageRepository;
-        this.messageMapper = messageMapper;
     }
 
     @Override
     public MessageDto getRandomMessage() {
-        MessageDto messageDto = new MessageDto();
         Message message = messageRepository.getRandomMessage();
+        log.info("message service -> message: {}", message);
+        MessageDto messageDto = new MessageDto();
         messageDto.setText(message.getText());
         log.info("message service -> getRandomMessage: {}", messageDto);
         return messageDto;
