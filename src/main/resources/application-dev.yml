@@ -18,5 +18,5 @@ spring:
 logging:
   level:
     ROOT: INFO
-    ru.omnichat.facebook: DEBUG
+    org.bmn.jokesender: DEBUG
 

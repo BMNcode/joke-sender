@@ -5,9 +5,9 @@ import org.bmn.jokesender.dao.dto.MessageDto;
 import org.bmn.jokesender.dao.service.MessageService;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.Objects;
 
@@ -25,10 +25,17 @@ public class MessageController {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    @GetMapping
-    public void getMessage () {
+    @PostMapping
+    public void triggerMessage (@RequestBody Update update) {
+        log.info("controller -> old update: {}", update);
+
         MessageDto response = messageService.getRandomMessage();
-        log.info("controller -> getMessage: {}", response);
-        rabbitTemplate.convertAndSend("amq.direct", "tg", Objects.requireNonNullElse(response, "not joke"));
+
+        Message message = update.getMessage();
+        message.setText(response.getText());
+        update.setMessage(message);
+        log.info("controller -> new update: {}", update);
+
+        rabbitTemplate.convertAndSend("amq.direct", "tg", Objects.requireNonNullElse(update, "not joke"));
     }
 }

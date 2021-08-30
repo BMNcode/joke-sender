@@ -25,7 +25,6 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public MessageDto getRandomMessage() {
         Message message = messageRepository.getRandomMessage();
-        log.info("message service -> message: {}", message);
         MessageDto messageDto = new MessageDto();
         messageDto.setText(message.getText());
         log.info("message service -> getRandomMessage: {}", messageDto);
